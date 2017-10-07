@@ -1,20 +1,20 @@
 
 from setuptools import setup, find_packages
 
-from reviews import __version__
+from poll import __version__
 
 
 with open('requirements.txt') as f:
     requires = f.read().splitlines()
 
 
-url = 'https://github.com/pmaigutyak/mp-reviews'
+url = 'https://github.com/pmaigutyak/mp-poll'
 
 
 setup(
-    name='django-mp-reviews',
+    name='django-mp-poll',
     version=__version__,
-    description='Django reviews apps',
+    description='Django poll app',
     long_description=open('README.md').read(),
     author='Paul Maigutyak',
     author_email='pmaigutyak@gmail.com',
