@@ -1,7 +1,7 @@
 include README.md
 include LICENSE
 include requirements.txt
-recursive-include reviews/locale *
-recursive-include reviews/static *
-recursive-include reviews/templates *
+recursive-include poll/locale *
+recursive-include poll/static *
+recursive-include poll/templates *
 prune *.pyc

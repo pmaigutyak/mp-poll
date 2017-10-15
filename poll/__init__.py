@@ -10,4 +10,4 @@ class PollConfig(AppConfig):
 
 default_app_config = 'poll.PollConfig'
 
-__version__ = '1.0'
+__version__ = '2.0'
