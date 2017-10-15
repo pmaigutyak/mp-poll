@@ -1,80 +1,56 @@
-# MP-Reviews
+# MP-Poll
 
-Django reviews app.
+Django poll app.
 
 ### Installation
 
 Install with pip:
 
-```sh
-$ pip install django-mp-reviews
+```
+$ pip install django-mp-poll
 ```
 
-Add reviews to settings.py:
+Add poll to settings.py:
 
 ```
 INSTALLED_APPS = [
-    'reviews',
+    ...
+    'poll',
 ]
 ```
 
-Add reviews to urls.py:
+Add poll to urls.py:
 ```
 urlpatterns = [
-	url(r'^reviews/', include('reviews.urls', namespace='reviews')),
+	...
+	url(r'^poll/', include('poll.urls', namespace='poll')),
 ]
 ```
 
-Add bower components:
+Add static components:
 ```
-BOWER_INSTALLED_APPS = (
-	'jquery#1.11.1',
-	'jquery-form',
-	'jquery.rateit',
-)
+poll/poll.css
+poll/poll.js
 ```
 
-Add PIPELINE settings:
-```
-PIPELINE = {
-	'STYLESHEETS': {
-            'generic': {
-                'source_filenames': (
-                    'bower_components/jquery.rateit/scripts/rateit.css',
-                ),
-                'output_filename': 'cache/generic.css',
-            }
-        },
-        'JAVASCRIPT': {
-            'generic': {
-                'source_filenames': (
-                    'bower_components/jquery/dist/jquery.js',
-                    'bower_components/jquery.rateit/scripts/jquery.rateit.js',
-                    'bower_components/jquery-form/dist/jquery.form.min.js',
-                    'reviews/reviews.js',
-                ),
-                'output_filename': 'cache/generic.js',
-            }
-        }
-}
-```
-
-Install bower components:
-
-```
-$ python manage.py bower install
-```
-
-Run migrations:
+Sync DB:
 
 ```
 $ python manage.py migrate
+$ python manage.py sync_translation_fields
 ```
 
-Create reviews list template 'templates/reviews/index.html' for 'reviews:index' url.
+## Template
+```
+{% load poll %}
+
+<div>
+	{% render_latest_poll %}
+</div>
+```
 
 ### Requirements
 
 App require this packages:
 
-* django-pure-pagination
+* django-modeltranslation
