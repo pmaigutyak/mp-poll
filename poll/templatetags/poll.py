@@ -18,7 +18,10 @@ def render_latest_poll(context):
 
     poll_model = apps.get_model('poll', 'Poll')
 
-    poll = poll_model.objects.latest()
+    try:
+        poll = poll_model.objects.latest()
+    except poll_model.DoesNotExist:
+        return {}
 
     is_poll_voted = poll.is_voted(
         request.user, get_ip(request), get_session_key(request))
