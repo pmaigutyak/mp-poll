@@ -1,13 +1,36 @@
 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic import FormView
 from django.http.response import (
-    HttpResponse, HttpResponseBadRequest, JsonResponse)
+    HttpResponseBadRequest, JsonResponse, HttpResponse)
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 
-from poll.utils import get_ip, get_session_key
+from misc.utils import get_ip, get_session_key
+
 from poll.forms import VoteForm
+from poll.models import Poll
+
+
+def get_latest_poll(request):
+
+    try:
+        poll = Poll.objects.latest()
+    except Poll.DoesNotExist:
+        return HttpResponse(_('No poll found'))
+
+    is_poll_voted = poll.is_voted(
+        request.user, get_ip(request), get_session_key(request))
+
+    form = VoteForm(initial={'poll': poll})
+
+    context = {
+        'poll': poll,
+        'form': form,
+        'is_poll_voted': is_poll_voted
+    }
+
+    return render(request, 'poll/index.html', context)
 
 
 class VoteView(FormView):

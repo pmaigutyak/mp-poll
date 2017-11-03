@@ -2,8 +2,9 @@
 from django.apps import apps
 from django import template
 
+from misc.utils import get_ip, get_session_key
+
 from ..forms import VoteForm
-from ..utils import get_ip, get_session_key
 
 
 register = template.Library()

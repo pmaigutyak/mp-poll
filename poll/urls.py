@@ -1,11 +1,13 @@
 
 from django.conf.urls import url
 
-from poll.views import VoteView
+from poll import views
 
 
 urlpatterns = [
 
-    url(r'^vote/$', VoteView.as_view(), name='vote')
+    url(r'^latest/$', views.get_latest_poll, name='latest'),
+
+    url(r'^vote/$', views.VoteView.as_view(), name='vote')
 
 ]
