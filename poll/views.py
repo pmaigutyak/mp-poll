@@ -1,12 +1,11 @@
 
 from django.shortcuts import redirect
 from django.views.generic import FormView
-from django.http.response import (
-    HttpResponse, HttpResponseBadRequest, JsonResponse)
+from django.http.response import (HttpResponseBadRequest, JsonResponse)
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 
-from poll.utils import get_ip, get_session_key
+from misc.utils import get_ip, get_session_key
 from poll.forms import VoteForm
 
 
