@@ -36,6 +36,7 @@ def get_latest_poll(request):
 class VoteView(FormView):
 
     form_class = VoteForm
+    http_method_names = ['post']
 
     def form_valid(self, form):
 
