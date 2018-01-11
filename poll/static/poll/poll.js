@@ -1,9 +1,9 @@
 (function ($) {
 
-    var $form = $('[data-role=poll]'),
-        $resultBtn = $form.find('[href=#poll-result]');
+    $('body').on('[data-role=poll]', 'submit').submit(function (event) {
 
-    $form.submit(function (event) {
+        var $form = $('[data-role=poll]'),
+            $resultBtn = $form.find('[href=#poll-result]');
 
         $.post($form.attr('action'), $form.serialize(), function (response) {
 
