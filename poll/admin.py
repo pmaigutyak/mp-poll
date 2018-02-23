@@ -4,9 +4,10 @@ from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 
 from poll.models import Poll, PollChoice
+from suit.sortables import SortableTabularInlineBase
 
 
-class PollChoiceInline(TranslationTabularInline):
+class PollChoiceInline(SortableTabularInlineBase, TranslationTabularInline):
 
     model = PollChoice
     extra = 0

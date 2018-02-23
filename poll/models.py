@@ -5,6 +5,8 @@ from django.utils.functional import cached_property
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
+from ordered_model.models import OrderedModelBase
+
 
 class Poll(models.Model):
 
@@ -32,7 +34,7 @@ class Poll(models.Model):
         verbose_name_plural = _('Polls')
 
 
-class PollChoice(models.Model):
+class PollChoice(OrderedModelBase):
 
     poll = models.ForeignKey(
         Poll, verbose_name=_('Poll'), related_name='choices')
@@ -40,6 +42,11 @@ class PollChoice(models.Model):
     value = models.CharField(_('Value'), max_length=255)
 
     votes = models.IntegerField(_('Votes'), default=0, editable=False)
+
+    order = models.PositiveIntegerField(_('Ordering'), default=0)
+
+    order_field_name = 'order'
+    order_with_respect_to = 'poll'
 
     @cached_property
     def percent(self):
@@ -51,7 +58,7 @@ class PollChoice(models.Model):
         return self.value
 
     class Meta:
-        ordering = ['value']
+        ordering = ('order', 'id', )
         unique_together = ['poll', 'value']
         verbose_name = _('Poll choice')
         verbose_name_plural = _('Poll choices')
