@@ -1,6 +1,6 @@
 (function ($) {
 
-    $('body').on('submit', '[data-role=poll]').submit(function (event) {
+    $('body').on('submit', '[data-role=poll]', function (event) {
 
         var $form = $('[data-role=poll]'),
             $resultBtn = $form.find('[href=#poll-result]');
