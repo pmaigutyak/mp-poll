@@ -54,3 +54,4 @@ $ python manage.py sync_translation_fields
 App require this packages:
 
 * django-modeltranslation
+* django-ordered-model
