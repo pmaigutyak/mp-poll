@@ -6,7 +6,7 @@ from django.http.response import (
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 
-from misc.utils import get_ip, get_session_key
+from poll.utils import get_ip, get_session_key
 
 from poll.forms import VoteForm
 from poll.models import Poll

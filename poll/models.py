@@ -24,7 +24,7 @@ class Poll(models.Model):
 
         return self.vote_set.filter(check_query).exists()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.question
 
     class Meta:
@@ -37,7 +37,8 @@ class Poll(models.Model):
 class PollChoice(OrderedModelBase):
 
     poll = models.ForeignKey(
-        Poll, verbose_name=_('Poll'), related_name='choices')
+        Poll, verbose_name=_('Poll'), related_name='choices',
+        on_delete=models.CASCADE)
 
     value = models.CharField(_('Value'), max_length=255)
 
@@ -54,7 +55,7 @@ class PollChoice(OrderedModelBase):
             return int(float(self.votes) / float(self.poll.votes) * 100)
         return 0
 
-    def __unicode__(self):
+    def __str__(self):
         return self.value
 
     class Meta:
@@ -67,11 +68,14 @@ class PollChoice(OrderedModelBase):
 class Vote(models.Model):
 
     user = models.ForeignKey(
-        get_user_model(), verbose_name=_('User'), null=True, editable=False)
+        get_user_model(), verbose_name=_('User'), null=True, editable=False,
+        on_delete=models.SET_NULL)
 
-    poll = models.ForeignKey(Poll, verbose_name=_('Poll'))
+    poll = models.ForeignKey(
+        Poll, verbose_name=_('Poll'), on_delete=models.CASCADE)
 
-    choice = models.ForeignKey(PollChoice, verbose_name=_('Choice'))
+    choice = models.ForeignKey(
+        PollChoice, verbose_name=_('Choice'), on_delete=models.CASCADE)
 
     created = models.DateTimeField(
         _('Created'), editable=False, auto_now_add=True, db_index=True)
@@ -84,7 +88,7 @@ class Vote(models.Model):
     user_agent = models.CharField(
         _('User agent'), max_length=255, editable=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.choice.value
 
     class Meta:

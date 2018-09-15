@@ -1,16 +1,8 @@
 
-from modeltranslation.translator import register, TranslationOptions
+from modeltranslation.translator import translator
 
 from poll.models import Poll, PollChoice
 
 
-@register(Poll)
-class ArticleTranslationOptions(TranslationOptions):
-
-    fields = ('question', )
-
-
-@register(PollChoice)
-class ArticleTagTranslationOptions(TranslationOptions):
-
-    fields = ('value', )
+translator.register(Poll, fields=['question'])
+translator.register(PollChoice, fields=['value'])
