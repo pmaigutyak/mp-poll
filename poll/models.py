@@ -19,7 +19,7 @@ class Poll(models.Model):
     def is_voted(self, user, user_ip, session_key):
         check_query = Q(ip=user_ip) | Q(session=session_key)
 
-        if user.is_authenticated():
+        if user.is_authenticated:
             check_query = check_query | Q(user=user)
 
         return self.vote_set.filter(check_query).exists()

@@ -57,7 +57,7 @@ class VoteView(FormView):
         vote.session = session_key
         vote.user_agent = request.META.get('HTTP_USER_AGENT', '')[:255]
 
-        if user.is_authenticated():
+        if user.is_authenticated:
             vote.user = user
 
         vote.save()
